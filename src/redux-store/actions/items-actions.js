@@ -10,3 +10,11 @@ export const fetchItems = () => async dispatch => {
     dispatch({ type: actionTypes.FETCH_ITEMS, payload: docs })
   })
 }
+
+export const addItem = (item) => async dispatch => {
+  db.collection('items')
+    .add(item)
+    .then(docRef => {
+      dispatch({ type: actionTypes.ADD_ITEM})
+    })
+}
