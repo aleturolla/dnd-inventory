@@ -20,6 +20,7 @@ module.exports = override(
     Components: path.resolve(__dirname, 'src/components/'),
     Containers: path.resolve(__dirname, 'src/containers/'),
     Hoc: path.resolve(__dirname, 'src/hoc/'),
+    Firebase: path.resolve(__dirname, 'src/firebase.js'),
     Store: path.resolve(__dirname, 'src/redux-store/store.js'),
     Actions: path.resolve(__dirname, 'src/redux-store/actions/'),
     Reducers: path.resolve(__dirname, 'src/redux-store/reducers/'),

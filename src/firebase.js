@@ -1,4 +1,4 @@
-import * as firebase from 'firebase'
+import firebase from 'firebase'
 const config = {
   apiKey: 'AIzaSyDfopuM5NtwNpcnMWsHImgyGyR42sG1yrY',
   authDomain: 'dnd-inventory.firebaseapp.com',
@@ -9,5 +9,4 @@ const config = {
   appId: '1:916802828069:web:52c5bfe255039df3be8ccc'
 }
 firebase.initializeApp(config)
-const databaseRef = firebase.database().ref()
-export const itemsRef = databaseRef.child('items')
+export default firebase
