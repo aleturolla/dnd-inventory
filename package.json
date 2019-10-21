@@ -1,0 +1,65 @@
+{
+  "name": "dnd-inventory",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "antd": "^3.16.2",
+    "babel-plugin-import": "^1.11.0",
+    "customize-cra": "^0.2.12",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "prop-types": "^15.7.2",
+    "ramda": "^0.26.1",
+    "react": "^16.8.6",
+    "react-app-rewired": "^2.1.1",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.0.1",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "2.1.8",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^4.2.0"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "coverage": "yarn test --coverage",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
+    "react-test-renderer": "^16.8.6"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!<rootDir>/node_modules",
+      "!src/**/*.{css, test}.js",
+      "!src/setupTests.js",
+      "!src/serviceWorker.js",
+      "!src/common/*"
+    ],
+    "moduleNameMapper": {
+      "^Common(.*)$": "<rootDir>/src/common$1",
+      "^Components(.*)$": "<rootDir>/src/components$1",
+      "^Containers(.*)$": "<rootDir>/src/containers$1",
+      "^Hoc(.*)$": "<rootDir>/src/hoc$1",
+      "^Routes(.*)$": "<rootDir>/src/routes$1",
+      "^Store$": "<rootDir>/src/redux-store/store.js",
+      "^Reducers(.*)$": "<rootDir>/src/redux-store/reducers$1",
+      "^Actions(.*)$": "<rootDir>/src/redux-store/actions$1"
+    }
+  }
+}
