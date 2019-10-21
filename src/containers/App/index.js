@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import {Input} from 'antd'
+import {Input, Button} from 'antd'
 
 import { connect } from 'react-redux'
-import { fetchItems, addItem } from 'Actions/items-actions'
+import { fetchItems, addItem, removeItem } from 'Actions/items-actions'
 import MainLayout from 'Hoc/MainLayout'
 
 
@@ -15,23 +15,42 @@ class App extends Component {
     inputValue: ''
   }
 
-  onAddNewItem = (value, event) => {
+  onAddNewItem = value => {
     const {addItem} = this.props
     addItem(value)
       .then(() => this.setState({inputValue: ''}))
   }
+  onDeleteItem = (idItem) => {
+    console.log(idItem)
+    const {removeItem} = this.props
+    removeItem(idItem)
+  }
+
+  renderItem () {
+    const {items} = this.props
+    return (
+      <ul>
+        {items.map((item, index) => (
+          <li key={index}>
+            {item.name}
+            <Button
+              icon={'delete'}
+              onClick={() => this.onDeleteItem(item._id)}
+              shape={'circle'}
+              type="danger"
+            />
+          </li>
+        ))}
+      </ul>
+    )
+  }
 
   render() {
-    const {items} = this.props
     const {inputValue} = this.state
     return (
       <MainLayout>
         <h1>D&D Inventory</h1>
-        <ul>
-          {items.map((item, index) => (
-            <li key={index}>{item.name}</li>
-          ))}
-        </ul>
+        {this.renderItem()}
         <Input.Search
           enterButton={'Add'}
           placeholder={'Add new item'}
@@ -52,7 +71,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addItem: value => dispatch(addItem({name: value})),
-    fetchItems: () => dispatch(fetchItems())
+    fetchItems: () => dispatch(fetchItems()),
+    removeItem: item => dispatch(removeItem(item))
   }
 }
 
