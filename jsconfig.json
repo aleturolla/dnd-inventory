@@ -12,6 +12,7 @@
       "Components/*": ["src/components/*"],
       "Containers/*": ["src/containers/*"],
       "Hoc/*": ["src/hoc/*"],
+      "Firebase": ["src/firebase.js"],
       "Store": ["src/redux-store/store.js"],
       "Actions/*": ["src/redux-store/actions/*"],
       "Reducers/*": ["src/redux-store/reducers/*"],
