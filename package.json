@@ -2,6 +2,7 @@
   "name": "dnd-inventory",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://aleturolla.altervista.org/dnd-inventory/",
   "dependencies": {
     "antd": "^3.16.2",
     "babel-plugin-import": "^1.11.0",
