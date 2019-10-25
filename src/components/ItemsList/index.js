@@ -15,23 +15,20 @@ const ItemsList = props => {
   return (
     <List header={<h3>{props.title}</h3>} size="small" bordered>
       {items.map((item, index) => (
-        <List.Item
-          key={index}
-          actions={[
-            <Button
-              icon={'delete'}
-              onClick={() => onDeleteCallback(item._id)}
-              shape={'circle'}
-              type="danger"
-              size="small"
-              ghost
-            />
-          ]}>
+        <List.Item key={index}>
           <List.Item.Meta
             avatar={
               <Icon type={renderIcon(item.type)} style={{ fontSize: '20px' }} />
             }
             title={item.name}
+          />
+          <Button
+            icon={'delete'}
+            onClick={() => onDeleteCallback(item._id)}
+            shape={'circle'}
+            type="danger"
+            size="small"
+            ghost
           />
         </List.Item>
       ))}

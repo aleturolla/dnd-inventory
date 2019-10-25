@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import { Input } from 'antd'
-import { ascend, prop, sort } from 'ramda'
+import { Typography, Input } from 'antd'
 import { connect } from 'react-redux'
 
 import { fetchInventories } from 'Actions/inventories-actions'
 import { fetchItems, addItem, removeItem } from 'Actions/items-actions'
 import MainLayout from 'Hoc/MainLayout'
 import ItemsList from 'Components/ItemsList'
+import { GridColumnsWrapper, GridRowsWrapper } from 'Common/styled'
+
+const { Title } = Typography
 
 class App extends Component {
   state = {
@@ -27,22 +29,31 @@ class App extends Component {
   }
   renderList = () => {
     const { inventories, items } = this.props
-    const sortFunc = ascend(prop('owner'))
-    const sortedInventories = sort(sortFunc, inventories)
+    const owners = []
+    inventories.forEach(({ owner }) => {
+      owners.findIndex(item => item === owner) < 0 && owners.push(owner)
+    })
 
-    return sortedInventories.map(inventory => (
-      <ItemsList
-        title={`${inventory.name} ${inventory.owner || ''}`}
-        items={items.filter(item => item.inventoryId === inventory._id)}
-        onDeleteCallback={this.onDeleteItem}
-      />
+    return owners.map(ownerName => (
+      <GridRowsWrapper>
+        <Title level={2}>{ownerName || 'Party'}</Title>
+        {inventories
+          .filter(({ owner }) => owner === ownerName)
+          .map(inventory => (
+            <ItemsList
+              title={`${inventory.name}`}
+              items={items.filter(item => item.inventoryId === inventory._id)}
+              onDeleteCallback={this.onDeleteItem}
+            />
+          ))}
+      </GridRowsWrapper>
     ))
   }
   render() {
     const { inputValue } = this.state
     return (
       <MainLayout>
-        <h1>D&D Inventory</h1>
+        <Title>D&D Inventory</Title>
         <Input.Search
           enterButton={'Add'}
           placeholder={'Add new item'}
@@ -50,7 +61,7 @@ class App extends Component {
           onChange={e => this.setState({ inputValue: e.target.value })}
           value={inputValue}
         />
-        {this.renderList()}
+        <GridColumnsWrapper>{this.renderList()}</GridColumnsWrapper>
       </MainLayout>
     )
   }
