@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Typography, Input } from 'antd'
+import { Typography } from 'antd'
 import { connect } from 'react-redux'
 
 import { fetchInventories } from 'Actions/inventories-actions'
@@ -11,17 +11,14 @@ import { GridColumnsWrapper, GridRowsWrapper } from 'Common/styled'
 const { Title } = Typography
 
 class App extends Component {
-  state = {
-    inputValue: ''
-  }
   componentDidMount() {
     const { fetchItems, fetchInventories } = this.props
     fetchItems()
     fetchInventories()
   }
-  onAddNewItem = value => {
+  onAddNewItem = (value, inputType, inventoryId) => {
     const { addItem } = this.props
-    addItem(value).then(() => this.setState({ inputValue: '' }))
+    addItem(value, inputType, inventoryId)
   }
   onDeleteItem = idItem => {
     const { removeItem } = this.props
@@ -33,34 +30,29 @@ class App extends Component {
     inventories.forEach(({ owner }) => {
       owners.findIndex(item => item === owner) < 0 && owners.push(owner)
     })
-
     return owners.map(ownerName => (
-      <GridRowsWrapper>
-        <Title level={2}>{ownerName || 'Party'}</Title>
+      <GridRowsWrapper key={ownerName}>
+        <Title level={2}>{ownerName}</Title>
         {inventories
           .filter(({ owner }) => owner === ownerName)
           .map(inventory => (
             <ItemsList
+              key={inventory._id}
               title={`${inventory.name}`}
               items={items.filter(item => item.inventoryId === inventory._id)}
               onDeleteCallback={this.onDeleteItem}
+              onAddNewItemCallback={(value, itemType) =>
+                this.onAddNewItem(value, itemType, inventory._id)
+              }
             />
           ))}
       </GridRowsWrapper>
     ))
   }
   render() {
-    const { inputValue } = this.state
     return (
       <MainLayout>
         <Title>D&D Inventory</Title>
-        <Input.Search
-          enterButton={'Add'}
-          placeholder={'Add new item'}
-          onSearch={this.onAddNewItem}
-          onChange={e => this.setState({ inputValue: e.target.value })}
-          value={inputValue}
-        />
         <GridColumnsWrapper>{this.renderList()}</GridColumnsWrapper>
       </MainLayout>
     )
@@ -75,7 +67,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    addItem: value => dispatch(addItem({ name: value })),
+    addItem: (name, type, inventoryId) =>
+      dispatch(addItem({ name, type, inventoryId })),
     fetchInventories: () => dispatch(fetchInventories()),
     fetchItems: () => dispatch(fetchItems()),
     removeItem: item => dispatch(removeItem(item))
