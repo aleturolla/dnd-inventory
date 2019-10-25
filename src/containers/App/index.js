@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Input } from 'antd'
-
+import { ascend, prop, sort } from 'ramda'
 import { connect } from 'react-redux'
+
+import { fetchInventories } from 'Actions/inventories-actions'
 import { fetchItems, addItem, removeItem } from 'Actions/items-actions'
 import MainLayout from 'Hoc/MainLayout'
 import ItemsList from 'Components/ItemsList'
@@ -11,7 +13,9 @@ class App extends Component {
     inputValue: ''
   }
   componentDidMount() {
-    this.props.fetchItems()
+    const { fetchItems, fetchInventories } = this.props
+    fetchItems()
+    fetchInventories()
   }
   onAddNewItem = value => {
     const { addItem } = this.props
@@ -21,9 +25,21 @@ class App extends Component {
     const { removeItem } = this.props
     removeItem(idItem)
   }
+  renderList = () => {
+    const { inventories, items } = this.props
+    const sortFunc = ascend(prop('owner'))
+    const sortedInventories = sort(sortFunc, inventories)
+
+    return sortedInventories.map(inventory => (
+      <ItemsList
+        title={`${inventory.name} ${inventory.owner || ''}`}
+        items={items.filter(item => item.inventoryId === inventory._id)}
+        onDeleteCallback={this.onDeleteItem}
+      />
+    ))
+  }
   render() {
     const { inputValue } = this.state
-    const { items } = this.props
     return (
       <MainLayout>
         <h1>D&D Inventory</h1>
@@ -34,11 +50,7 @@ class App extends Component {
           onChange={e => this.setState({ inputValue: e.target.value })}
           value={inputValue}
         />
-        <ItemsList
-          title={'Borsa conservante'}
-          items={items}
-          onDeleteCallback={this.onDeleteItem}
-        />
+        {this.renderList()}
       </MainLayout>
     )
   }
@@ -46,12 +58,14 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
+    inventories: state.Inventories,
     items: state.Items
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
     addItem: value => dispatch(addItem({ name: value })),
+    fetchInventories: () => dispatch(fetchInventories()),
     fetchItems: () => dispatch(fetchItems()),
     removeItem: item => dispatch(removeItem(item))
   }
