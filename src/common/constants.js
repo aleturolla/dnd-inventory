@@ -4,9 +4,3 @@ export const colors = {
   lightGrey: '#D9D9D9',
   darkGrey: '#6D7278'
 }
-
-export const itemTypes = [
-  { value: 'default', icon: 'star' },
-  { value: 'potion', icon: 'experiment' },
-  { value: 'scroll', icon: 'file-text' }
-]
