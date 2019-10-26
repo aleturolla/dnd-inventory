@@ -39,6 +39,7 @@ class App extends Component {
             <ItemsList
               key={inventory._id}
               title={`${inventory.name}`}
+              specificItem={inventory.specificItem}
               items={items.filter(item => item.inventoryId === inventory._id)}
               onDeleteCallback={this.onDeleteItem}
               onAddNewItemCallback={(value, itemType) =>

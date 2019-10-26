@@ -7,10 +7,14 @@ const AddItem = props => {
   const {
     inputValue,
     itemType,
+    specificItem,
     setInputValueCallback,
     setItemTypeCallback,
     addItemCallback
   } = props
+  const types = specificItem
+    ? TYPES.filter(type => type === specificItem)
+    : TYPES
   const selectType = (
     <StyledSelect
       onChange={setItemTypeCallback}
@@ -19,8 +23,8 @@ const AddItem = props => {
         display: 'grid',
         gridTemplateColumns: 'repeat(4, min-content)'
       }}
-      value={itemType}>
-      {TYPES.map(type => (
+      value={itemType || specificItem}>
+      {types.map(type => (
         <Select.Option value={type} key={type}>
           <IconSelector type={type} />
         </Select.Option>

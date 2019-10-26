@@ -4,7 +4,7 @@ import AddItem from 'Components/AddItem'
 import IconSelector from 'Components/IconSelector'
 
 function ItemsList(props) {
-  const { title, items, onDeleteCallback, onAddNewItemCallback } = props
+  const { title, items, specificItem, onDeleteCallback, onAddNewItemCallback } = props
   const [inputValue, setInputValue] = useState('')
   const [itemType, setItemType] = useState('')
 
@@ -18,6 +18,7 @@ function ItemsList(props) {
       <AddItem
         inputValue={inputValue}
         itemType={itemType}
+        specificItem={specificItem}
         setInputValueCallback={setInputValue}
         setItemTypeCallback={setItemType}
         addItemCallback={addItem}
