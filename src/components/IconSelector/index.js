@@ -73,13 +73,16 @@ export default class IconSelector extends PureComponent {
       case UNKNOWN:
         return UnknownSvg
       default:
-        return []
+        return ''
     }
   }
   render() {
-    const { type } = this.props
+    const { type, size } = this.props
     return (
-      <Icon component={this.handlerSelector(type)} style={{ fontSize: 20 }} />
+      <Icon
+        component={this.handlerSelector(type)}
+        style={{ fontSize: size || 20 }}
+      />
     )
   }
 }
