@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+import 'firebase/auth'
 const config = {
   apiKey: 'AIzaSyDfopuM5NtwNpcnMWsHImgyGyR42sG1yrY',
   authDomain: 'dnd-inventory.firebaseapp.com',
@@ -9,4 +10,5 @@ const config = {
   appId: '1:916802828069:web:52c5bfe255039df3be8ccc'
 }
 firebase.initializeApp(config)
+export const auth = firebase.auth()
 export default firebase
