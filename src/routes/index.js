@@ -1,14 +1,60 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import { CONFIG } from './constants'
 
-const renderRoute = ({ component, path, ...route }) => {
+const renderRouteComponent = (
+  needAuth,
+  isAuthenticated,
+  isVerifying,
+  component,
+  props
+) => {
   const Comp = component
+  return needAuth ? (
+    isVerifying ? (
+      <div />
+    ) : isAuthenticated ? (
+      <Comp {...props} />
+    ) : (
+      <Redirect
+        to={{
+          pathname: '/login',
+          state: { from: props.location }
+        }}
+      />
+    )
+  ) : (
+    <Comp {...props} />
+  )
+}
+const renderRoute = ({ component, path, needAuth, ...route }, props) => {
+  const { isAuthenticated, isVerifying } = props
   return (
-    <Route {...route} path={path} component={props => <Comp {...props} />} />
+    <Route
+      {...route}
+      path={path}
+      render={props =>
+        renderRouteComponent(
+          needAuth,
+          isAuthenticated,
+          isVerifying,
+          component,
+          props
+        )
+      }
+    />
   )
 }
 
-const Routes = () => <Switch>{CONFIG.map(renderRoute)}</Switch>
+const Routes = props => (
+  <Switch>{CONFIG.map(route => renderRoute(route, props))}</Switch>
+)
 
-export default Routes
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.Auth.isAuthenticated,
+    isVerifying: state.Auth.isVerifying
+  }
+}
+export default connect(mapStateToProps)(Routes)

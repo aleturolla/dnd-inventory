@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Typography } from 'antd'
+import { Typography, Button } from 'antd'
 import { connect } from 'react-redux'
 
+import { logoutUser } from 'Actions/auth-actions'
 import { fetchInventories } from 'Actions/inventories-actions'
 import { fetchItems, addItem, removeItem } from 'Actions/items-actions'
 import MainLayout from 'Hoc/MainLayout'
@@ -51,9 +52,15 @@ class App extends Component {
     ))
   }
   render() {
+    const { logoutUser } = this.props
     return (
       <MainLayout>
-        <Title>D&D Inventory</Title>
+        <Title>
+          D&D Inventory{' '}
+          <Button type="link" onClick={logoutUser}>
+            Logout
+          </Button>
+        </Title>
         <GridColumnsWrapper>{this.renderList()}</GridColumnsWrapper>
       </MainLayout>
     )
@@ -68,6 +75,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
+    logoutUser: () => dispatch(logoutUser()),
     addItem: (name, type, inventoryId) =>
       dispatch(addItem({ name, type, inventoryId })),
     fetchInventories: () => dispatch(fetchInventories()),
