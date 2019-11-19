@@ -12,7 +12,7 @@ import store from 'Store'
 import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(
-  <BrowserRouter basename="/dnd-inventory">
+  <BrowserRouter>
     <Provider store={store}>
       <Routes />
     </Provider>
