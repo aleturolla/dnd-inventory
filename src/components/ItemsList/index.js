@@ -6,7 +6,7 @@ import IconSelector from 'Components/IconSelector'
 function ItemsList(props) {
   const { title, items, specificItem, onDeleteCallback, onAddNewItemCallback } = props
   const [inputValue, setInputValue] = useState('')
-  const [itemType, setItemType] = useState('')
+  const [itemType, setItemType] = useState(specificItem || '')
 
   const addItem = value => {
     onAddNewItemCallback(value, itemType)

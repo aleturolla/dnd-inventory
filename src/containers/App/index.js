@@ -29,7 +29,7 @@ class App extends Component {
     const { inventories, items } = this.props
     const owners = []
     inventories.forEach(({ owner }) => {
-      owners.findIndex(item => item === owner) < 0 && owners.push(owner)
+      owners.findIndex(ow => ow === owner) < 0 && owners.push(owner)
     })
     return owners.map(ownerName => (
       <GridRowsWrapper key={ownerName}>
@@ -84,7 +84,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

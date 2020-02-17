@@ -2,7 +2,6 @@ import React from 'react'
 import { Input, Select } from 'antd'
 import { StyledSelect } from './styled'
 import IconSelector, { TYPES } from 'Components/IconSelector'
-import '../ItemsList/resetDropdown.modules.css'
 const AddItem = props => {
   const {
     inputValue,
