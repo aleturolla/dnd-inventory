@@ -1,7 +1,7 @@
 import * as actionTypes from '../action-types'
 import { db } from 'Firebase'
 
-export const fetchItems = () => async dispatch => {
+export const fetchItems = () => dispatch => {
   db.collection('items').onSnapshot(querySnapshot => {
     const docs = []
     querySnapshot.forEach(doc => {
@@ -12,15 +12,21 @@ export const fetchItems = () => async dispatch => {
   })
 }
 
-export const addItem = item => async dispatch => {
+export const addItem = item => dispatch => {
+  debugger
   db.collection('items')
     .add(item)
-    .then(docRef => {
-      dispatch({ type: actionTypes.ADD_ITEM })
-    })
+    .then(docRef => dispatch({ type: actionTypes.ADD_ITEM }))
 }
 
-export const removeItem = id => async dispatch => {
+export const editItem = item => dispatch => {
+  db.collection('items')
+    .doc(item._id)
+    .set(item)
+    .then(docRef => dispatch({ type: actionTypes.EDIT_ITEM }))
+}
+
+export const removeItem = id => dispatch => {
   db.collection('items')
     .doc(id)
     .delete()
