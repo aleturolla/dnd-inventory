@@ -1,6 +1,5 @@
 import * as actionTypes from '../action-types'
-import firebase from 'Firebase'
-const db = firebase.firestore()
+import { db } from 'Firebase'
 
 export const fetchInventories = () => async dispatch => {
   db.collection('inventories').onSnapshot(querySnapshot => {
