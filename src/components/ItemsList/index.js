@@ -4,7 +4,13 @@ import AddItem from 'Components/AddItem'
 import IconSelector from 'Components/IconSelector'
 
 function ItemsList(props) {
-  const { title, items, specificItem, onDeleteCallback, onAddNewItemCallback } = props
+  const {
+    title,
+    items,
+    specificItem,
+    onDeleteCallback,
+    onAddNewItemCallback
+  } = props
   const [inputValue, setInputValue] = useState('')
   const [itemType, setItemType] = useState(specificItem || '')
 
@@ -27,7 +33,12 @@ function ItemsList(props) {
         <List.Item key={index}>
           <List.Item.Meta
             avatar={<IconSelector type={item.type} />}
-            title={item.name}
+            title={
+              <span>
+                {item.name} <small>(x{item.qty || 1})</small>
+              </span>
+            }
+            description={item.description}
           />
           <Button
             icon={'delete'}
