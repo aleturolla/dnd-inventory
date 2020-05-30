@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Route, Switch } from 'react-router-dom'
 import { Typography, Button } from 'antd'
 import { connect } from 'react-redux'
 
@@ -15,6 +16,7 @@ import MainLayout from 'Hoc/MainLayout'
 import ItemForm from 'Components/ItemForm'
 import ItemsList from 'Components/ItemsList'
 import { GridColumnsWrapper, GridRowsWrapper } from 'Common/styled'
+import RandomExtractionFromList from 'Components/RandomExtractionFromList'
 
 const { Title } = Typography
 
@@ -90,6 +92,9 @@ class App extends Component {
           }
         />
         <GridColumnsWrapper>{this.renderList()}</GridColumnsWrapper>
+        <Switch>
+          <Route component={RandomExtractionFromList} path={'/extraction'} />
+        </Switch>
       </MainLayout>
     )
   }
