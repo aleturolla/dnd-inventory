@@ -59,13 +59,21 @@ class Homepage extends Component {
 
   render() {
     const { isMenuOpen } = this.state
-    const { location, isAuthenticated, logoutUser } = this.props
+    const { location, user, isAuthenticated, logoutUser } = this.props
     return (
       <Layout>
         {isAuthenticated ? (
           <>
-            <Header onMenuOpen={this.onMenuOpen} onLogout={logoutUser} />
-            <Menu pathname={location.pathname} isOpen={isMenuOpen} onClose={this.onMenuClose} />
+            <Header
+              username={user.displayName}
+              onMenuOpen={this.onMenuOpen}
+              onLogout={logoutUser}
+            />
+            <Menu
+              pathname={location.pathname}
+              isOpen={isMenuOpen}
+              onClose={this.onMenuClose}
+            />
           </>
         ) : null}
         <PaddedContent>{this.renderContent()}</PaddedContent>
@@ -76,6 +84,7 @@ class Homepage extends Component {
 }
 
 const mapStateToProps = state => ({
+  user: state.Auth.user,
   isAuthenticated: state.Auth.isAuthenticated,
   isVerifying: state.Auth.isVerifying,
 })
@@ -83,4 +92,6 @@ const mapDispatchToProps = {
   logoutUser,
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Homepage))
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Homepage)
+)

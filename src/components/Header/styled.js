@@ -8,7 +8,7 @@ export const StyledHeader = styled(Layout.Header)`
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08);
   display: grid;
   gap: 16px;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr auto auto;
   align-items: center;
   padding: 0 16px;
 `
