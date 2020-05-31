@@ -1,11 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { List, Button, Card, Empty } from 'antd'
 import IconSelector from 'Components/IconSelector'
 
 function ItemsList(props) {
-  const { title, items, onEditCallback, onDeleteCallback } = props
+  const { title, limit, items, onEditCallback, onDeleteCallback } = props
   return (
-    <Card title={title}>
+    <Card title={<>{title} {limit ? <small>{`(max. ${limit})`}</small> : ''}</>}>
       {items.length === 0 ? (
         <Empty
           style={{ opacity: 0.5 }}
@@ -48,5 +49,12 @@ function ItemsList(props) {
       )}
     </Card>
   )
+}
+ItemsList.propTypes = {
+  items: PropTypes.array,
+  limit: PropTypes.number,
+  onDeleteCallback: PropTypes.func.isRequired,
+  onEditCallback: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
 }
 export default ItemsList

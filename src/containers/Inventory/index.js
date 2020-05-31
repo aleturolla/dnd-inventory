@@ -70,7 +70,8 @@ class Inventory extends Component {
           .map(inventory => (
             <ItemsList
               key={inventory._id}
-              title={`${inventory.name}`}
+              title={inventory.name}
+              limit={inventory.limit}
               specificItem={inventory.specificItem}
               items={items.filter(item => item.inventoryId === inventory._id)}
               onEditCallback={this.onModalOpen}
