@@ -13,7 +13,6 @@ export const fetchItems = () => dispatch => {
 }
 
 export const addItem = item => dispatch => {
-  debugger
   db.collection('items')
     .add(item)
     .then(docRef => dispatch({ type: actionTypes.ADD_ITEM }))

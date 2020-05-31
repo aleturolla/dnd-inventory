@@ -1,20 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-
-// ROUTING
 import { BrowserRouter } from 'react-router-dom'
-import Routes from 'Routes/'
-
-// REDUX
 import { Provider } from 'react-redux'
 import store from 'Store'
-
 import * as serviceWorker from './serviceWorker'
+
+import Homepage from 'Containers/Homepage'
 
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
-      <Routes />
+      <Homepage />
     </Provider>
   </BrowserRouter>,
   document.getElementById('root')
