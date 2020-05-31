@@ -19,13 +19,13 @@ const { Title } = Typography
 
 class Inventory extends Component {
   static propTypes = {
-    addItem: PropTypes.func,
-    editItem: PropTypes.func,
-    fetchInventories: PropTypes.func,
-    fetchItems: PropTypes.func,
-    items: PropTypes.array,
-    inventories: PropTypes.array,
-    removeItem: PropTypes.func,
+    addItem: PropTypes.func.isRequired,
+    editItem: PropTypes.func.isRequired,
+    fetchInventories: PropTypes.func.isRequired,
+    fetchItems: PropTypes.func.isRequired,
+    items: PropTypes.array.isRequired,
+    inventories: PropTypes.array.isRequired,
+    removeItem: PropTypes.func.isRequired,
   }
   state = {
     isModalVisible: false,
