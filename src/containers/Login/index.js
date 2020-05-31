@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Typography } from 'antd'
-import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import { loginUser } from 'Actions/auth-actions'
@@ -11,19 +10,18 @@ const { Title } = Typography
 
 class Login extends Component {
   handleSubmit = (e, form) => {
-    const { loginUser } = this.props
+    const { loginUser, history } = this.props
     e.preventDefault()
     form.validateFields((err, values) => {
       if (!err) {
-        loginUser(values.email, values.password)
+        loginUser(values.email, values.password, () => history.push('/'))
       }
     })
   }
+
   render() {
-    const { loginError, isAuthenticated } = this.props
-    return isAuthenticated ? (
-      <Redirect to="/" />
-    ) : (
+    const { loginError } = this.props
+    return (
       <MainLayout>
         <Title>Welcome on D&D Inventory</Title>
         <LoginForm submitCallback={this.handleSubmit} loginError={loginError} />
@@ -35,7 +33,6 @@ const mapStateToProps = state => {
   return {
     isLoggingIn: state.Auth.isLoggingIn,
     loginError: state.Auth.loginError,
-    isAuthenticated: state.Auth.isAuthenticated
   }
 }
 const mapDispatchToProps = dispatch => {
