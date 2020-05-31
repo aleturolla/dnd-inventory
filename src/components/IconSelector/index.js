@@ -14,6 +14,7 @@ import { ReactComponent as ArmorSvg } from '../../assets/svg/023-armor.svg'
 import { ReactComponent as KeySvg } from '../../assets/svg/024-key.svg'
 import { ReactComponent as ScrollSvg } from '../../assets/svg/032-map.svg'
 import { ReactComponent as UnknownSvg } from '../../assets/svg/046-locked.svg'
+import { ReactComponent as GhostSvg } from '../../assets/svg/030-ghost.svg'
 
 const CHEST = 'chest'
 const SWORD = 'sword'
@@ -27,6 +28,7 @@ const ARMOR = 'armor'
 const KEY = 'key'
 const SCROLL = 'scroll'
 const UNKNOWN = 'unknown'
+const GHOST = 'ghost'
 export const TYPES = [
   CHEST,
   SWORD,
@@ -44,7 +46,7 @@ export const TYPES = [
 
 export default class IconSelector extends PureComponent {
   static propTypes = {
-    type: PropTypes.oneOf(TYPES)
+    type: PropTypes.oneOf([...TYPES, GHOST])
   }
   handlerSelector = type => {
     switch (type) {
@@ -72,6 +74,8 @@ export default class IconSelector extends PureComponent {
         return ScrollSvg
       case UNKNOWN:
         return UnknownSvg
+      case GHOST:
+        return GhostSvg
       default:
         return ''
     }
