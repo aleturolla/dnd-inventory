@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Typography, Button } from 'antd'
+import { Layout } from 'antd'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import { logoutUser } from 'Actions/auth-actions'
 
-import MainLayout from 'Hoc/MainLayout'
 import Login from 'Containers/Login'
 import Inventory from 'Containers/Inventory'
 import Maneuvers from 'Components/Maneuvers'
 import Loader from 'Components/Loader'
-
-const { Title } = Typography
+import Header from 'Components/Header'
+import Footer from 'Components/Footer'
+import { PaddedContent } from 'Common/styled'
 
 class Homepage extends Component {
   static propTypes = {
@@ -24,8 +24,8 @@ class Homepage extends Component {
     return <Maneuvers {...props} />
   }
 
-  render() {
-    const { logoutUser, isAuthenticated, isVerifying } = this.props
+  renderContent() {
+    const { isAuthenticated, isVerifying } = this.props
 
     if (isVerifying) {
       return <Loader />
@@ -41,19 +41,22 @@ class Homepage extends Component {
     }
 
     return (
-      <MainLayout>
-        <Title>
-          {'D&D Tools'}
-          <Button type="link" onClick={logoutUser}>
-            Logout
-          </Button>
-        </Title>
-        <Switch>
-          <Route component={this.renderManeuvers} path={'/maneuvers'} />
-          <Route component={Inventory} path={'/inventory'} />
-          <Redirect to={'/inventory'} />
-        </Switch>
-      </MainLayout>
+      <Switch>
+        <Route component={this.renderManeuvers} path={'/maneuvers'} />
+        <Route component={Inventory} path={'/inventory'} />
+        <Redirect to={'/inventory'} />
+      </Switch>
+    )
+  }
+
+  render() {
+    const { isAuthenticated, logoutUser } = this.props
+    return (
+      <Layout>
+        {isAuthenticated ? <Header onLogout={logoutUser} /> : null}
+        <PaddedContent>{this.renderContent()}</PaddedContent>
+        <Footer />
+      </Layout>
     )
   }
 }

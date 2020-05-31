@@ -3,7 +3,7 @@ import { Typography } from 'antd'
 import { connect } from 'react-redux'
 
 import { loginUser } from 'Actions/auth-actions'
-import MainLayout from 'Hoc/MainLayout'
+
 import LoginForm from 'Components/LoginForm'
 
 const { Title } = Typography
@@ -22,10 +22,10 @@ class Login extends Component {
   render() {
     const { loginError } = this.props
     return (
-      <MainLayout>
+      <>
         <Title>Welcome on D&D Inventory</Title>
         <LoginForm submitCallback={this.handleSubmit} loginError={loginError} />
-      </MainLayout>
+      </>
     )
   }
 }

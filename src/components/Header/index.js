@@ -1,15 +1,23 @@
 import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
+import { Button } from 'antd'
+
 import { StyledHeader } from './styled'
 
-import PropTypes from 'prop-types'
-
-const Header = props => (
-  <Fragment>
-    <StyledHeader>App name</StyledHeader>
-  </Fragment>
-)
+const Header = props => {
+  const { onLogout } = props
+  return (
+    <Fragment>
+      <StyledHeader>
+        <Button type="link" onClick={onLogout}>
+          Logout
+        </Button>
+      </StyledHeader>
+    </Fragment>
+  )
+}
 
 Header.propTypes = {
-  user: PropTypes.object
+  onLogout: PropTypes.func.isRequired,
 }
 export default Header
