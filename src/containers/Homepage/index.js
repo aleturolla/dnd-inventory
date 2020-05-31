@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Layout } from 'antd'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { withRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import { logoutUser } from 'Actions/auth-actions'
@@ -11,6 +11,7 @@ import Inventory from 'Containers/Inventory'
 import Maneuvers from 'Components/Maneuvers'
 import Loader from 'Components/Loader'
 import Header from 'Components/Header'
+import Menu from 'Components/Menu'
 import Footer from 'Components/Footer'
 import { PaddedContent } from 'Common/styled'
 
@@ -19,6 +20,13 @@ class Homepage extends Component {
     isAuthenticated: PropTypes.bool,
     isVerifying: PropTypes.bool,
   }
+
+  state = {
+    isMenuOpen: false,
+  }
+
+  onMenuOpen = () => this.setState({ isMenuOpen: true })
+  onMenuClose = () => this.setState({ isMenuOpen: false })
 
   renderManeuvers = props => {
     return <Maneuvers {...props} />
@@ -50,10 +58,16 @@ class Homepage extends Component {
   }
 
   render() {
-    const { isAuthenticated, logoutUser } = this.props
+    const { isMenuOpen } = this.state
+    const { location, isAuthenticated, logoutUser } = this.props
     return (
       <Layout>
-        {isAuthenticated ? <Header onLogout={logoutUser} /> : null}
+        {isAuthenticated ? (
+          <>
+            <Header onMenuOpen={this.onMenuOpen} onLogout={logoutUser} />
+            <Menu pathname={location.pathname} isOpen={isMenuOpen} onClose={this.onMenuClose} />
+          </>
+        ) : null}
         <PaddedContent>{this.renderContent()}</PaddedContent>
         <Footer />
       </Layout>
@@ -69,4 +83,4 @@ const mapDispatchToProps = {
   logoutUser,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Homepage)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Homepage))
