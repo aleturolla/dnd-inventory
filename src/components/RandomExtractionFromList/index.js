@@ -12,10 +12,6 @@ class RandomExtractionFromList extends Component {
     list: PropTypes.arrayOf(PropTypes.string)
   }
 
-  static defaultProps = {
-    list: []
-  }
-
   constructor(props) {
     super(props);
 
@@ -24,13 +20,6 @@ class RandomExtractionFromList extends Component {
       list: []
     }
   }
-
-  // devo aggiungere una lista
-  // rimuovere elementi passati dalla lista
-  // devo passare quanti elementi voglio estrarre alla volta
-  // poter lanciare un reset per resettare la lista con gli stessi elementi passati
-  // mostrare gli elementi estratti
-  // quelli estratti devono essere rimossi dalla shallowCopy list
 
   onAddElementInList = (item) => {
     const {list} = this.state
@@ -75,7 +64,7 @@ class RandomExtractionFromList extends Component {
   render () {
     const {extracted, list} = this.state
     return (
-      <div style={{...styles.column, width: 400}}>
+      <div style={{...styles.column}}>
         <div style={{display: 'flex'}}>
           <Input.Search
             onSearch={this.onAddElementInList}
