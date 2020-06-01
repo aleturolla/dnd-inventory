@@ -11,9 +11,9 @@ class LoginForm extends Component {
             rules: [{ required: true, message: 'Insert the email!' }]
           })(
             <Input
-              prefix={<Icon type="user" />}
-              type="email"
-              placeholder="Email"
+              prefix={<Icon type={'user'} />}
+              type={'email'}
+              placeholder={'Email'}
             />
           )}
         </Form.Item>
@@ -22,16 +22,18 @@ class LoginForm extends Component {
             rules: [{ required: true, message: 'Insert the password!' }]
           })(
             <Input
-              prefix={<Icon type="lock" />}
-              type="password"
-              placeholder="Password"
+              prefix={<Icon type={'lock'} />}
+              type={'password'}
+              placeholder={'Password'}
             />
           )}
         </Form.Item>
-        {loginError && <Text type="danger">Incorrect email or password!</Text>}
+        {loginError && (
+          <Text type={'danger'}>{'Incorrect email or password!'}</Text>
+        )}
         <Form.Item>
-          <Button type="primary" htmlType="submit" block>
-            Login
+          <Button type={'primary'} htmlType={'submit'} block>
+            {'Login'}
           </Button>
         </Form.Item>
       </Form>

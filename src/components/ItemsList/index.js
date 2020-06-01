@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { List, Button, Card, Empty } from 'antd'
+
 import IconSelector from 'Components/IconSelector'
 
 function ItemsList(props) {
@@ -11,11 +12,11 @@ function ItemsList(props) {
         <Empty
           style={{ opacity: 0.5 }}
           imageStyle={{ height: 50 }}
-          image={<IconSelector type="ghost" size={50} />}
+          image={<IconSelector type={'ghost'} size={50} />}
           description={'No items!'}
         />
       ) : (
-        <List size="small">
+        <List size={'small'}>
           {items.map((item, index) => (
             <List.Item key={index}>
               <List.Item.Meta
@@ -31,16 +32,16 @@ function ItemsList(props) {
                 icon={'edit'}
                 onClick={() => onEditCallback(item)}
                 shape={'circle'}
-                type="primary"
-                size="small"
+                type={'primary'}
+                size={'small'}
                 ghost
               />
               <Button
                 icon={'delete'}
                 onClick={() => onDeleteCallback(item._id)}
                 shape={'circle'}
-                type="danger"
-                size="small"
+                type={'danger'}
+                size={'small'}
                 ghost
               />
             </List.Item>
@@ -51,7 +52,13 @@ function ItemsList(props) {
   )
 }
 ItemsList.propTypes = {
-  items: PropTypes.array,
+  items: PropTypes.arrayOf(PropTypes.shape({
+    description: PropTypes.string,
+    inventoryId: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    qty: PropTypes.number.isRequired,
+    type: PropTypes.string,
+  })),
   limit: PropTypes.number,
   onDeleteCallback: PropTypes.func.isRequired,
   onEditCallback: PropTypes.func.isRequired,

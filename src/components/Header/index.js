@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Icon, Button } from 'antd'
 
@@ -7,16 +7,20 @@ import { StyledHeader, AppTitle } from './styled'
 const Header = props => {
   const { username, onMenuOpen, onLogout } = props
   return (
-    <Fragment>
-      <StyledHeader>
-        <Icon type="menu-unfold" onClick={onMenuOpen} />
-        <AppTitle>{'D&D Tools'}</AppTitle>
-        <span>
-          Ciao, <strong>{username}</strong>
-        </span>
-        <Button type="link" onClick={onLogout} icon="logout" title="Logout" />
-      </StyledHeader>
-    </Fragment>
+    <StyledHeader>
+      <Icon type={'menu-unfold'} onClick={onMenuOpen} />
+      <AppTitle>{'D&D Tools'}</AppTitle>
+      <span>
+        {'Ciao, '}
+        <strong>{username}</strong>
+      </span>
+      <Button
+        type={'link'}
+        onClick={onLogout}
+        icon={'logout'}
+        title={'Logout'}
+      />
+    </StyledHeader>
   )
 }
 

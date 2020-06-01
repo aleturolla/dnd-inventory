@@ -23,7 +23,7 @@ class Login extends Component {
     const { loginError } = this.props
     return (
       <>
-        <Title>Welcome on D&D Inventory</Title>
+        <Title>{'Welcome on D&D Inventory'}</Title>
         <LoginForm submitCallback={this.handleSubmit} loginError={loginError} />
       </>
     )
@@ -40,7 +40,4 @@ const mapDispatchToProps = dispatch => {
     loginUser: (email, password) => dispatch(loginUser(email, password))
   }
 }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

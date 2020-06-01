@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { Layout } from 'antd'
 
 export const PaddedContent = styled(Layout.Content)`
-  padding: 1rem;
+  padding: 16px;
   min-height: calc(100vh - 32px);
   display: grid;
   grid-gap: 16px;
@@ -18,6 +18,6 @@ export const GridRowsWrapper = styled.div`
   display: grid;
   grid-gap: 16px;
   grid-template-rows: repeat(auto-fit, minmax(0px, min-content));
-  grid-template-columns: '100%';
+  grid-template-columns: 100%;
   overflow: hidden;
 `

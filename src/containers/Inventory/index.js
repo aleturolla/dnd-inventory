@@ -91,7 +91,7 @@ class Inventory extends Component {
           type="primary"
           onClick={() => this.onModalOpen(item)}
           style={{ width: 'max-content' }}>
-          Add item
+          {'Add item'}
         </Button>
         <ItemForm
           item={item}
