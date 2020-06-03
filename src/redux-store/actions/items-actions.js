@@ -7,7 +7,9 @@ export const fetchItems = () => dispatch => {
     querySnapshot.forEach(doc => {
       return docs.push({ ...doc.data(), _id: doc.id })
     })
-
+    docs.sort(
+      (a, b) => a.type.localeCompare(b.type) || a.name.localeCompare(b.name)
+    )
     dispatch({ type: actionTypes.FETCH_ITEMS, payload: docs })
   })
 }

@@ -29,6 +29,7 @@ class AddItemForm extends Component {
         Object.keys(values).forEach(
           key => values[key] === undefined && delete values[key]
         )
+        form.resetFields()
         onSubmitCallback(values)
       }
     })
@@ -82,7 +83,10 @@ class AddItemForm extends Component {
       : TYPES
     return (
       <Col span={4}>
-        {form.getFieldDecorator('type')(
+        {form.getFieldDecorator('type', {
+          rules: [{ required: true }],
+          initialValue: 'chest',
+        })(
           <TypeSelect
             dropdownMatchSelectWidth={false}
             dropdownMenuStyle={{
@@ -116,8 +120,8 @@ class AddItemForm extends Component {
     return (
       <Col span={6}>
         <Form.Item>
-          {form.getFieldDecorator('qty', { rules: [{ required: true }] })(
-            <InputNumber placeholder={'Qty'} />
+          {form.getFieldDecorator('qty', { initialValue: 1 })(
+            <InputNumber min={1} placeholder={'Qty'} />
           )}
         </Form.Item>
       </Col>
