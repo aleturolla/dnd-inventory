@@ -29,6 +29,7 @@ class AddItemForm extends Component {
         Object.keys(values).forEach(
           key => values[key] === undefined && delete values[key]
         )
+        form.resetFields()
         onSubmitCallback(values)
       }
     })
