@@ -116,8 +116,8 @@ class AddItemForm extends Component {
     return (
       <Col span={6}>
         <Form.Item>
-          {form.getFieldDecorator('qty', { rules: [{ required: true }] })(
-            <InputNumber placeholder={'Qty'} />
+          {form.getFieldDecorator('qty', { initialValue: 1 })(
+            <InputNumber min={1} placeholder={'Qty'} />
           )}
         </Form.Item>
       </Col>
