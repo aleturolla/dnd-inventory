@@ -4,6 +4,9 @@ import { List, Button, Card, Empty } from 'antd'
 
 import IconSelector from 'Components/IconSelector'
 
+const { Item } = List
+const { Meta } = Item
+
 function ItemsList(props) {
   const { title, limit, items, onEditCallback, onDeleteCallback } = props
   return (
@@ -18,8 +21,8 @@ function ItemsList(props) {
       ) : (
         <List size={'small'}>
           {items.map((item, index) => (
-            <List.Item key={index}>
-              <List.Item.Meta
+            <Item key={index}>
+              <Meta
                 avatar={<IconSelector type={item.type} />}
                 title={
                   <span>
@@ -44,7 +47,7 @@ function ItemsList(props) {
                 size={'small'}
                 ghost
               />
-            </List.Item>
+            </Item>
           ))}
         </List>
       )}
