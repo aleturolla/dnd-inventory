@@ -1,41 +1,70 @@
 import React from 'react'
-import { List, Button } from 'antd'
+import PropTypes from 'prop-types'
+import { List, Button, Card, Empty } from 'antd'
+
 import IconSelector from 'Components/IconSelector'
 
+const { Item } = List
+const { Meta } = Item
+
 function ItemsList(props) {
-  const { title, items, onEditCallback, onDeleteCallback } = props
+  const { title, limit, items, onEditCallback, onDeleteCallback } = props
   return (
-    <List header={<h3>{title}</h3>} size="small" bordered>
-      {items.map((item, index) => (
-        <List.Item key={index}>
-          <List.Item.Meta
-            avatar={<IconSelector type={item.type} />}
-            title={
-              <span>
-                {item.name} <small>(x{item.qty})</small>
-              </span>
-            }
-            description={item.description}
-          />
-          <Button
-            icon={'edit'}
-            onClick={() => onEditCallback(item)}
-            shape={'circle'}
-            type="primary"
-            size="small"
-            ghost
-          />
-          <Button
-            icon={'delete'}
-            onClick={() => onDeleteCallback(item._id)}
-            shape={'circle'}
-            type="danger"
-            size="small"
-            ghost
-          />
-        </List.Item>
-      ))}
-    </List>
+    <Card title={<>{title} {limit ? <small>{`(max. ${limit})`}</small> : ''}</>}>
+      {items.length === 0 ? (
+        <Empty
+          style={{ opacity: 0.5 }}
+          imageStyle={{ height: 50 }}
+          image={<IconSelector type={'ghost'} size={50} />}
+          description={'No items!'}
+        />
+      ) : (
+        <List size={'small'}>
+          {items.map((item, index) => (
+            <Item key={index}>
+              <Meta
+                avatar={<IconSelector type={item.type} />}
+                title={
+                  <span>
+                    {item.name} <small>(x{item.qty})</small>
+                  </span>
+                }
+                description={item.description}
+              />
+              <Button
+                icon={'edit'}
+                onClick={() => onEditCallback(item)}
+                shape={'circle'}
+                type={'primary'}
+                size={'small'}
+                ghost
+              />
+              <Button
+                icon={'delete'}
+                onClick={() => onDeleteCallback(item._id)}
+                shape={'circle'}
+                type={'danger'}
+                size={'small'}
+                ghost
+              />
+            </Item>
+          ))}
+        </List>
+      )}
+    </Card>
   )
+}
+ItemsList.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({
+    description: PropTypes.string,
+    inventoryId: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    qty: PropTypes.number.isRequired,
+    type: PropTypes.string,
+  })),
+  limit: PropTypes.number,
+  onDeleteCallback: PropTypes.func.isRequired,
+  onEditCallback: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
 }
 export default ItemsList

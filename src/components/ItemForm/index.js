@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { equals, isEmpty } from 'ramda'
 import { Row, Col, Modal, Form, Select, Input, InputNumber } from 'antd'
+
 import IconSelector, { TYPES } from 'Components/IconSelector'
 import { TypeSelect } from './styled'
+
+import { units } from 'Common/constants'
 
 class AddItemForm extends Component {
   state = {
@@ -53,7 +56,7 @@ class AddItemForm extends Component {
           {form.getFieldDecorator('inventoryId', {
             rules: [{ required: true }]
           })(
-            <Select placeholder="Inventory" onChange={this.onSelectInventory}>
+            <Select placeholder={'Inventory'} onChange={this.onSelectInventory}>
               {owners.map(ow => (
                 <Select.OptGroup label={ow} key={ow}>
                   {inventories
@@ -102,7 +105,7 @@ class AddItemForm extends Component {
       <Col span={14}>
         <Form.Item>
           {form.getFieldDecorator('name', { rules: [{ required: true }] })(
-            <Input placeholder="Name" />
+            <Input placeholder={'Name'} />
           )}
         </Form.Item>
       </Col>
@@ -114,7 +117,7 @@ class AddItemForm extends Component {
       <Col span={6}>
         <Form.Item>
           {form.getFieldDecorator('qty', { rules: [{ required: true }] })(
-            <InputNumber placeholder="Qty" />
+            <InputNumber placeholder={'Qty'} />
           )}
         </Form.Item>
       </Col>
@@ -126,7 +129,7 @@ class AddItemForm extends Component {
       <Col span={23}>
         <Form.Item>
           {form.getFieldDecorator('description')(
-            <Input.TextArea placeholder="Description" />
+            <Input.TextArea placeholder={'Description'} />
           )}
         </Form.Item>
       </Col>
@@ -142,7 +145,7 @@ class AddItemForm extends Component {
         onOk={this.onSubmit}
         okText={isEmpty(item) ? 'Add' : 'Edit'}>
         <Form>
-          <Row gutter={16}>
+          <Row gutter={units.md}>
             <Form.Item style={{ display: 'none' }}>
               {form.getFieldDecorator('_id')(<Input />)}
             </Form.Item>

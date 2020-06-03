@@ -1,8 +1,11 @@
 import styled from 'styled-components'
 import { Layout } from 'antd'
 
+import { colors, units } from 'Common/constants'
+
 export const StyledFooter = styled(Layout.Footer)`
   text-align: center;
   padding: 0;
-  height: 30px;
+  height: ${units.xl}px;
+  color: ${colors.lightGrey};
 `

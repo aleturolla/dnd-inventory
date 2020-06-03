@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Typography, Button } from 'antd'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Layout } from 'antd'
+import { withRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import { logoutUser } from 'Actions/auth-actions'
 
-import MainLayout from 'Hoc/MainLayout'
 import Login from 'Containers/Login'
 import Inventory from 'Containers/Inventory'
 import Maneuvers from 'Components/Maneuvers'
 import Loader from 'Components/Loader'
-
-const { Title } = Typography
+import Header from 'Components/Header'
+import Menu from 'Components/Menu'
+import Footer from 'Components/Footer'
+import { PaddedContent } from 'Common/styled'
 
 class Homepage extends Component {
   static propTypes = {
@@ -20,12 +21,19 @@ class Homepage extends Component {
     isVerifying: PropTypes.bool,
   }
 
+  state = {
+    isMenuOpen: false,
+  }
+
+  onMenuOpen = () => this.setState({ isMenuOpen: true })
+  onMenuClose = () => this.setState({ isMenuOpen: false })
+
   renderManeuvers = props => {
     return <Maneuvers {...props} />
   }
 
-  render() {
-    const { logoutUser, isAuthenticated, isVerifying } = this.props
+  renderContent() {
+    const { isAuthenticated, isVerifying } = this.props
 
     if (isVerifying) {
       return <Loader />
@@ -41,24 +49,42 @@ class Homepage extends Component {
     }
 
     return (
-      <MainLayout>
-        <Title>
-          {'D&D Tools'}
-          <Button type="link" onClick={logoutUser}>
-            Logout
-          </Button>
-        </Title>
-        <Switch>
-          <Route component={this.renderManeuvers} path={'/maneuvers'} />
-          <Route component={Inventory} path={'/inventory'} />
-          <Redirect to={'/inventory'} />
-        </Switch>
-      </MainLayout>
+      <Switch>
+        <Route component={this.renderManeuvers} path={'/maneuvers'} />
+        <Route component={Inventory} path={'/inventory'} />
+        <Redirect to={'/inventory'} />
+      </Switch>
+    )
+  }
+
+  render() {
+    const { isMenuOpen } = this.state
+    const { location, user, isAuthenticated, logoutUser } = this.props
+    return (
+      <Layout>
+        {isAuthenticated ? (
+          <>
+            <Header
+              username={user.displayName}
+              onMenuOpen={this.onMenuOpen}
+              onLogout={logoutUser}
+            />
+            <Menu
+              pathname={location.pathname}
+              isOpen={isMenuOpen}
+              onClose={this.onMenuClose}
+            />
+          </>
+        ) : null}
+        <PaddedContent>{this.renderContent()}</PaddedContent>
+        <Footer />
+      </Layout>
     )
   }
 }
 
 const mapStateToProps = state => ({
+  user: state.Auth.user,
   isAuthenticated: state.Auth.isAuthenticated,
   isVerifying: state.Auth.isVerifying,
 })
@@ -66,4 +92,6 @@ const mapDispatchToProps = {
   logoutUser,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Homepage)
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Homepage)
+)
