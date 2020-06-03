@@ -7,38 +7,24 @@ assignees: ''
 
 ---
 
+## Thanks for opening an issue to React-Resizable!
+
 ### 🤔 This is a ...
 
-- [ ] New feature
-- [ ] Bug fix
-- [ ] Documentation update
-- [ ] Component style update
-- [ ] Refactoring
+- [ ] Feature Request
+- [ ] Bug
 - [ ] Test Case
+- [ ] Question
 - [ ] Other (about what?)
 
-### 🔗 Description or Related issue link
+### 🐛 Problem Report and reproduction
 
 <!--
-1. Describe the source of requirement, like related issue link.
+1. Describe the problem and the scenario 
+2. Please provide a reproduction of the issue by going to https://codesandbox.io/
 -->
 
-### 💡 Background and solution
-
-<!--
-1. Describe the problem and the scenario.
-2. GIF or snapshot should be provided if includes UI/interactive modification.
-3. How to fix the problem, and list final API implementation and usage sample if that is an new feature.
--->
-
-### 📝 Changelog
-
-<!--
-Describe changes from userside, and list all potential break changes or other risks.
---->
-
-### ☑️ Self Check before Merge
-
-⚠️ Please check all items below before review. ⚠️
-
-- [ ] Changelog is provided or not needed
+#### System Info
+Node Version:
+Browser:
+OS:
