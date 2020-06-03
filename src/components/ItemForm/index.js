@@ -83,7 +83,10 @@ class AddItemForm extends Component {
       : TYPES
     return (
       <Col span={4}>
-        {form.getFieldDecorator('type')(
+        {form.getFieldDecorator('type', {
+          rules: [{ required: true }],
+          initialValue: 'chest',
+        })(
           <TypeSelect
             dropdownMatchSelectWidth={false}
             dropdownMenuStyle={{
